@@ -1,0 +1,15 @@
+# macOS system files
+.DS_Store
+
+# Build output folders
+bin/
+obj/
+
+# Visual Studio / VS Code config
+*.user
+*.suo
+.vscode/
+
+# NuGet packages
+*.nupkg
+*.snupkg

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "3gPJ1rjIKMo=",
+  "dgSpecHash": "rwGhdLGNY3g=",
   "success": true,
   "projectFilePath": "/Users/muhammadkhan/Documents/Projects/Microservices/SharedKernel/SharedKernel.csproj",
   "expectedPackageFiles": [
@@ -33,6 +33,11 @@
     "/Users/muhammadkhan/.nuget/packages/microsoft.extensions.objectpool/8.0.11/microsoft.extensions.objectpool.8.0.11.nupkg.sha512",
     "/Users/muhammadkhan/.nuget/packages/microsoft.extensions.options/8.0.2/microsoft.extensions.options.8.0.2.nupkg.sha512",
     "/Users/muhammadkhan/.nuget/packages/microsoft.extensions.primitives/8.0.0/microsoft.extensions.primitives.8.0.0.nupkg.sha512",
+    "/Users/muhammadkhan/.nuget/packages/microsoft.identity.abstractions/9.3.0/microsoft.identity.abstractions.9.3.0.nupkg.sha512",
+    "/Users/muhammadkhan/.nuget/packages/microsoft.identitymodel.abstractions/8.13.1/microsoft.identitymodel.abstractions.8.13.1.nupkg.sha512",
+    "/Users/muhammadkhan/.nuget/packages/microsoft.identitymodel.jsonwebtokens/8.13.1/microsoft.identitymodel.jsonwebtokens.8.13.1.nupkg.sha512",
+    "/Users/muhammadkhan/.nuget/packages/microsoft.identitymodel.logging/8.13.1/microsoft.identitymodel.logging.8.13.1.nupkg.sha512",
+    "/Users/muhammadkhan/.nuget/packages/microsoft.identitymodel.tokens/8.13.1/microsoft.identitymodel.tokens.8.13.1.nupkg.sha512",
     "/Users/muhammadkhan/.nuget/packages/microsoft.net.http.headers/2.3.0/microsoft.net.http.headers.2.3.0.nupkg.sha512",
     "/Users/muhammadkhan/.nuget/packages/microsoft.netcore.platforms/1.0.1/microsoft.netcore.platforms.1.0.1.nupkg.sha512",
     "/Users/muhammadkhan/.nuget/packages/microsoft.netcore.targets/1.0.1/microsoft.netcore.targets.1.0.1.nupkg.sha512",
@@ -46,6 +51,7 @@
     "/Users/muhammadkhan/.nuget/packages/system.diagnostics.tools/4.0.1/system.diagnostics.tools.4.0.1.nupkg.sha512",
     "/Users/muhammadkhan/.nuget/packages/system.dynamic.runtime/4.0.11/system.dynamic.runtime.4.0.11.nupkg.sha512",
     "/Users/muhammadkhan/.nuget/packages/system.globalization/4.0.11/system.globalization.4.0.11.nupkg.sha512",
+    "/Users/muhammadkhan/.nuget/packages/system.identitymodel.tokens.jwt/8.13.1/system.identitymodel.tokens.jwt.8.13.1.nupkg.sha512",
     "/Users/muhammadkhan/.nuget/packages/system.io/4.1.0/system.io.4.1.0.nupkg.sha512",
     "/Users/muhammadkhan/.nuget/packages/system.io.filesystem/4.0.1/system.io.filesystem.4.0.1.nupkg.sha512",
     "/Users/muhammadkhan/.nuget/packages/system.io.filesystem.primitives/4.0.1/system.io.filesystem.primitives.4.0.1.nupkg.sha512",

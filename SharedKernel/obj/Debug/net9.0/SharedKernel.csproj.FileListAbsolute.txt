@@ -10,3 +10,4 @@
 /Users/muhammadkhan/Documents/Projects/Microservices/SharedKernel/obj/Debug/net9.0/SharedKernel.pdb
 /Users/muhammadkhan/Documents/Projects/Microservices/SharedKernel/obj/Debug/net9.0/ref/SharedKernel.dll
 /Users/muhammadkhan/Documents/Projects/Microservices/SharedKernel/obj/Debug/net9.0/SharedKernel.csproj.AssemblyReference.cache
+/Users/muhammadkhan/Documents/Projects/Microservices/SharedKernel/obj/Debug/net9.0/SharedKernel.sourcelink.json
