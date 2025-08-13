@@ -13,10 +13,12 @@ namespace IdentityService.Api.Controllers
     public class UserController : ControllerBase
     {
         private readonly IdentityDbContext _context;
+        private readonly IConfiguration _configuration;
 
-        public UserController(IdentityDbContext context)
+        public UserController(IdentityDbContext context, IConfiguration configuration)
         {
             _context = context;
+            _configuration = configuration;
         }
 
         // GET api/user
@@ -36,7 +38,7 @@ namespace IdentityService.Api.Controllers
             // if (!tenantExists)
             // Hash password
             var passwordHash = PasswordHasher.HashPassword(request.Password);
-
+            
             var user = new User
             {
                 UserId = Guid.NewGuid(),
@@ -67,20 +69,36 @@ namespace IdentityService.Api.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
-            var hashedPassword = PasswordHasher.HashPassword(request.Password);
+            if (!ModelState.IsValid)
+                return BadRequest(new ApiResponse<string>(null, 400, "Invalid request data"));
 
-            var user = await _context.Users
-                .FirstOrDefaultAsync(u => u.Email == request.Email && u.PasswordHash == hashedPassword);
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == request.Email);
 
             if (user == null)
+                return Unauthorized(new ApiResponse<string>(null, 401, "Invalid email or password"));
+
+            bool isPasswordValid = PasswordHasher.VerifyPassword(request.Password, user.PasswordHash);
+
+            if (!isPasswordValid)
+                return Unauthorized(new ApiResponse<string>(null, 401, "Invalid email or password"));
+
+            var token = JwtTokenGenerator.GenerateToken(
+                user.UserId,user.Email,
+                _configuration["JwtSettings:SecretKey"],
+                _configuration["JwtSettings:Issuer"],
+                _configuration["JwtSettings:Audience"],
+                int.Parse(_configuration["JwtSettings:ExpiryMinutes"])
+            );
+
+            return Ok(new ApiResponse<object>(new
             {
-                return Unauthorized("Invalid email or password");
-            }
-
-            // TODO: Generate JWT token here and return in response if applicable
-
-            return Ok(user);
+                Token = token,
+                User = new
+                {
+                    user.UserId,
+                    user.Email
+                }
+            }, 200, "Login successful"));
         }
-
     }
 }

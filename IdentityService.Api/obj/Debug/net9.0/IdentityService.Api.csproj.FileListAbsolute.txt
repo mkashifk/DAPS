@@ -135,3 +135,10 @@
 /Users/muhammadkhan/Documents/Projects/Microservices/IdentityService.Api/obj/Debug/net9.0/ref/IdentityService.Api.dll
 /Users/muhammadkhan/Documents/Projects/Microservices/IdentityService.Api/bin/Debug/net9.0/SharedKernel.dll
 /Users/muhammadkhan/Documents/Projects/Microservices/IdentityService.Api/bin/Debug/net9.0/SharedKernel.pdb
+/Users/muhammadkhan/Documents/Projects/Microservices/IdentityService.Api/obj/Debug/net9.0/IdentityService.Api.sourcelink.json
+/Users/muhammadkhan/Documents/Projects/Microservices/IdentityService.Api/bin/Debug/net9.0/Microsoft.Identity.Abstractions.dll
+/Users/muhammadkhan/Documents/Projects/Microservices/IdentityService.Api/bin/Debug/net9.0/Microsoft.IdentityModel.Abstractions.dll
+/Users/muhammadkhan/Documents/Projects/Microservices/IdentityService.Api/bin/Debug/net9.0/Microsoft.IdentityModel.JsonWebTokens.dll
+/Users/muhammadkhan/Documents/Projects/Microservices/IdentityService.Api/bin/Debug/net9.0/Microsoft.IdentityModel.Logging.dll
+/Users/muhammadkhan/Documents/Projects/Microservices/IdentityService.Api/bin/Debug/net9.0/Microsoft.IdentityModel.Tokens.dll
+/Users/muhammadkhan/Documents/Projects/Microservices/IdentityService.Api/bin/Debug/net9.0/System.IdentityModel.Tokens.Jwt.dll
