@@ -38,7 +38,7 @@ namespace IdentityService.Api.Controllers
             // if (!tenantExists)
             // Hash password
             var passwordHash = PasswordHasher.HashPassword(request.Password);
-            
+
             var user = new User
             {
                 UserId = Guid.NewGuid(),
@@ -83,7 +83,7 @@ namespace IdentityService.Api.Controllers
                 return Unauthorized(new ApiResponse<string>(null, 401, "Invalid email or password"));
 
             var token = JwtTokenGenerator.GenerateToken(
-                user.UserId,user.Email,
+                user.UserId, user.Email,
                 _configuration["JwtSettings:SecretKey"],
                 _configuration["JwtSettings:Issuer"],
                 _configuration["JwtSettings:Audience"],
@@ -100,5 +100,6 @@ namespace IdentityService.Api.Controllers
                 }
             }, 200, "Login successful"));
         }
+
     }
 }

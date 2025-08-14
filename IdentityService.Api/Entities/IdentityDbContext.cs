@@ -57,4 +57,5 @@ public partial class IdentityDbContext : DbContext
     }
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
 }
