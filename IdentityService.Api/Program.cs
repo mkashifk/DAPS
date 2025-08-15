@@ -1,60 +1,40 @@
-using IdentityService.Api.Entities;  
+using IdentityService.Api.Entities;
 using Microsoft.EntityFrameworkCore;
 using SharedKernel.Filters;
 
-
-
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+// Add services to the container
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add<ApiResponseWrapperFilter>();
+});
 
+// Database
 builder.Services.AddDbContext<IdentityDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddControllers();
+// Swagger/OpenAPI
+builder.Services.AddOpenApi();
 
-builder.Services.AddControllers(options => { options.Filters.Add<ApiResponseWrapperFilter>(); });
+builder.Services.AddEndpointsApiExplorer();  // required for Swagger
+builder.Services.AddSwaggerGen();              // add Swagger generator
 
 var app = builder.Build();
 
+app.UseSwagger();                             // enable Swagger middleware
+app.UseSwaggerUI();                           // enable Swagger UI
 
-
-
-// Configure the HTTP request pipeline.
+// Configure the HTTP request pipeline
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
 
-//app.UseHttpsRedirection();
+// Uncomment if you want HTTPS redirection
+// app.UseHttpsRedirection();
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast = Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast");
-
+// Map controllers
 app.MapControllers();
 
-
 app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}

@@ -2,11 +2,11 @@
     "Routes": [
       {
         "DownstreamPathTemplate": "/api/user/{everything}",
-        "DownstreamScheme": "http",
+        "DownstreamScheme": "https",
         "DownstreamHostAndPorts": [
           {
             "Host": "localhost",
-            "Port": 5081
+            "Port": 7276
           }
         ],
         "UpstreamPathTemplate": "/user/{everything}",
@@ -14,7 +14,7 @@
       }
     ],
     "GlobalConfiguration": {
-      "BaseUrl": "http://localhost:5000"
+      "BaseUrl": "http://localhost:7097"
     }
   }
   
