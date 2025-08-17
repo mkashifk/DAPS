@@ -33,7 +33,7 @@ namespace SharedKernel.Filters
             }
             else if (context.Result is EmptyResult)
             {
-                var wrappedResponse = new ApiResponse<object>(null, 204, "No Content");
+                var wrappedResponse = new ApiResponse<object?>(null, 204, "No Content");
 
                 context.Result = new ObjectResult(wrappedResponse)
                 {

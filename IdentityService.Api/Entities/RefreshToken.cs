@@ -17,7 +17,7 @@ namespace IdentityService.Api.Entities
 
         [Required]
         [Column("token")]
-        public string Token { get; set; }
+        public string? Token { get; set; }
 
         [Required]
         [Column("expires_at")]

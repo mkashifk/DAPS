@@ -9,7 +9,7 @@ namespace SharedKernel.Models
         public MetaData MetaData { get; set; } = new MetaData();
 
         [JsonPropertyName("data")]
-        public T Data { get; set; }
+        public T? Data { get; set; }
 
         public ApiResponse() { }
 

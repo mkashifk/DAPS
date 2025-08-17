@@ -70,24 +70,27 @@ namespace IdentityService.Api.Controllers
         public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
             if (!ModelState.IsValid)
-                return BadRequest(new ApiResponse<string>(null, 400, "Invalid request data"));
+                return BadRequest(new ApiResponse<string?>(null, 400, "Invalid request data"));
 
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == request.Email);
 
             if (user == null)
-                return Unauthorized(new ApiResponse<string>(null, 401, "Invalid email or password"));
+                return Unauthorized(new ApiResponse<string?>(null, 401, "Invalid email or password"));
 
             bool isPasswordValid = PasswordHasher.VerifyPassword(request.Password, user.PasswordHash);
 
             if (!isPasswordValid)
-                return Unauthorized(new ApiResponse<string>(null, 401, "Invalid email or password"));
+                return Unauthorized(new ApiResponse<string?>(null, 401, "Invalid email or password"));
+
+            var expirySetting = _configuration["JwtSettings:ExpiryMinutes"];
+            var expiryMinutes = int.TryParse(expirySetting, out var minutes) ? minutes : 60; // fallback
 
             var token = JwtTokenGenerator.GenerateToken(
                 user.UserId, user.Email,
-                _configuration["JwtSettings:SecretKey"],
-                _configuration["JwtSettings:Issuer"],
-                _configuration["JwtSettings:Audience"],
-                int.Parse(_configuration["JwtSettings:ExpiryMinutes"])
+                _configuration["JwtSettings:SecretKey"] ?? throw new InvalidOperationException("Missing SecretKey"),
+                _configuration["JwtSettings:Issuer"] ?? "defaultIssuer",
+                _configuration["JwtSettings:Audience"] ?? "defaultAudience",
+                expiryMinutes
             );
 
             return Ok(new ApiResponse<object>(new
