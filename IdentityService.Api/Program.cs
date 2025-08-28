@@ -1,6 +1,7 @@
 using IdentityService.Api.Entities;
 using Microsoft.EntityFrameworkCore;
 using SharedKernel.Filters;
+using IdentityService.Api.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +20,9 @@ builder.Services.AddOpenApi();
 
 builder.Services.AddEndpointsApiExplorer();  // required for Swagger
 builder.Services.AddSwaggerGen();              // add Swagger generator
+
+builder.Services.AddScoped<TokenService>();
+
 
 var app = builder.Build();
 

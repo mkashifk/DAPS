@@ -73,19 +73,18 @@ namespace IdentityService.Api.Controllers
                 return BadRequest(new ApiResponse<string?>(null, 400, "Invalid request data"));
 
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == request.Email);
-
             if (user == null)
                 return Unauthorized(new ApiResponse<string?>(null, 401, "Invalid email or password"));
 
             bool isPasswordValid = PasswordHasher.VerifyPassword(request.Password, user.PasswordHash);
-
             if (!isPasswordValid)
                 return Unauthorized(new ApiResponse<string?>(null, 401, "Invalid email or password"));
 
+            // JWT expiry
             var expirySetting = _configuration["JwtSettings:ExpiryMinutes"];
-            var expiryMinutes = int.TryParse(expirySetting, out var minutes) ? minutes : 60; // fallback
+            var expiryMinutes = int.TryParse(expirySetting, out var minutes) ? minutes : 60;
 
-            var token = JwtTokenGenerator.GenerateToken(
+            var jwtToken = JwtTokenGenerator.GenerateToken(
                 user.UserId, user.Email,
                 _configuration["JwtSettings:SecretKey"] ?? throw new InvalidOperationException("Missing SecretKey"),
                 _configuration["JwtSettings:Issuer"] ?? "defaultIssuer",
@@ -93,9 +92,26 @@ namespace IdentityService.Api.Controllers
                 expiryMinutes
             );
 
+            // Generate refresh token
+            var refreshToken = TokenService.GenerateRefreshToken();
+
+            // Save refresh token in DB
+            var entity = new RefreshToken
+            {
+                UserId = user.UserId,
+                Token = refreshToken.Token,
+                ExpiresAt = refreshToken.ExpiresAt,
+                CreatedAt = DateTime.UtcNow,
+                IsRevoked = false
+            };
+
+            _context.RefreshTokens.Add(entity);
+            await _context.SaveChangesAsync();
+
             return Ok(new ApiResponse<object>(new
             {
-                Token = token,
+                Token = jwtToken,
+                RefreshToken = refreshToken.Token,
                 User = new
                 {
                     user.UserId,
@@ -103,6 +119,7 @@ namespace IdentityService.Api.Controllers
                 }
             }, 200, "Login successful"));
         }
+
 
     }
 }

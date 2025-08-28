@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace IdentityService.Api.Entities
 {
     [Table("refresh_tokens", Schema = "auth")]
-    public class RefreshToken1
+    public class RefreshToken
     {
         [Key]
         [Column("token_id")]

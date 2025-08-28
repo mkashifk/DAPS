@@ -16,6 +16,8 @@ public partial class IdentityDbContext : DbContext
     }
 
     public virtual DbSet<User> Users { get; set; }
+    public virtual DbSet<RefreshToken> RefreshTokens { get; set; }   // <-- Add this
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -51,6 +53,25 @@ public partial class IdentityDbContext : DbContext
                 .HasDefaultValueSql("now()")
                 .HasColumnName("updated_at");
             entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
+        });
+
+        modelBuilder.Entity<RefreshToken>(entity =>
+        {
+            entity.HasKey(e => e.TokenId).HasName("refresh_tokens_pkey");
+
+            entity.ToTable("refresh_tokens", "auth");
+
+            entity.Property(e => e.TokenId)
+                .HasDefaultValueSql("gen_random_uuid()")
+                .HasColumnName("token_id");
+
+            entity.Property(e => e.UserId).HasColumnName("user_id");
+            entity.Property(e => e.Token).HasColumnName("token");
+            entity.Property(e => e.ExpiresAt).HasColumnName("expires_at");
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("now()")
+                .HasColumnName("created_at");
+            entity.Property(e => e.IsRevoked).HasColumnName("is_revoked");
         });
 
         OnModelCreatingPartial(modelBuilder);
